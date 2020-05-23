@@ -1,0 +1,34 @@
+import testObjects.*
+
+describe "test de vagones y locomotoras" {
+		
+	test "vagonDePasajeros de 10x5 puede transportar 10 * 10 " {
+		assert.equals(100, vagonAncho.cantidadMaximaDePasajeros())
+	}
+	
+	test "vagonDePasajeros de 10x2 puede transportar  10 * 8" {
+		assert.equals(80, vagonFino.cantidadMaximaDePasajeros())
+	}
+	
+	test "vagon de carga no transporta pasajeros" {
+		assert.equals(0, vagonCarga.cantidadMaximaDePasajeros())
+	}
+
+	test "vagon de carga que pesa 1000 pesa su peso mas 160" {
+		assert.equals(1160, vagonCarga.pesoMaximo())
+	}
+	
+	test "vagon es liviano, ya que pesa menos de 2500" {
+		assert.that(vagonLiviano.sosLiviano())
+	}
+
+	test "locomotora de 100000 kg puede arrastrar 100000 - su peso (10000) => 9000, y es eficiente" {
+		assert.equals(90000, locomotoraEficiente.arrastreUtil())
+		assert.that(locomotoraEficiente.esEficiente())
+	}
+		
+	test "locomotora no eficiente, no puede arrastrar 5 veces su peso" {
+		assert.notThat(locomotoraNoEficinte.esEficiente())
+	}
+
+}

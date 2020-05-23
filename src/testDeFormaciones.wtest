@@ -1,0 +1,37 @@
+import testObjects.*
+
+describe "test de formaciones y deposito" {
+
+	fixture{
+		formacion1.agregarVagon(vagonAncho)
+		formacion1.agregarLocomotora(locomotoraEficiente)
+		formacion1.agregarLocomotora(locomotoraNoEficinte)
+		
+		deposito.locomotorasSueltas().add(otraLocomotora)
+		formacionConFaltante.agregarVagon(vagonAncho)
+		otraFormacionConFaltante.agregarVagon(vagonAncho)
+	}
+	
+	test "velocidad Maxima de formacion es la velocidad minima de una de sus locomotoras" {
+		assert.equals(50, formacion1.velocidadMaxima())
+	}
+	
+	test "formacion no es eficiente ya que una de sus locomotoras, no lo es" {
+		assert.notThat(formacion1.esEficiente())
+	}
+
+	test "formacion puede moverse" {
+		assert.that(formacion1.puedeMoverse())
+	}
+
+	test "agregar una locomotora suelta a una formacion que no llega con el arrastre" {
+		deposito.agregarLocomotora(formacionConFaltante)
+		assert.that(deposito.locomotorasSueltas().isEmpty())
+	}
+	
+	test "necesito una locomotora pero no encuentra ninguna" {
+		deposito.agregarLocomotora(formacionConFaltante)
+		assert.throwsException({deposito.agregarLocomotora(otraFormacionConFaltante)})
+	}
+
+}
